@@ -9,7 +9,11 @@ const addSum = (a, b) =>
   });
 
 addSum(10, 20)
-  .then((sum) => console.log({ sum })) // 성공시 호출되는 부분
+  .then((sum1) => {
+    console.log({ sum1 });
+    return addSum(sum1, 3);
+  }) // 성공시 호출되는 부분
+  .then((sum2) => console.log({ sum2 })) // 성공시 호출되는 부분
   .catch((error) => console.log({ error })); // 실패시 호출되는 부분
 
 /*
