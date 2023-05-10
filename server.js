@@ -1,9 +1,10 @@
 const express = require("express"); // express 프레임워크 사용을 위한 선언 객체 생성
 const app = express(); // app 변수에 express 생성
 
-app.get("/", function (rea, res) {
-  // get 함수 생성 -> get이 호출되면 hello, world 출력
-  return res.send("hello, world!!");
+const users = [{ name: "JiHoon", age: 30 }];
+
+app.get("/user", function (req, res) {
+  res.send({ users }); // client에게 보내고 싶은 정보를 매개변수로 보내면 Page에서 확인 가능
 });
 
 app.listen(3000, function () {
