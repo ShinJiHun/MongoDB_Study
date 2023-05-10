@@ -12,9 +12,12 @@
     "url": "git+https://github.com/ShinJiHun/MongoDB_Study.git"
   },
   "author": "jhshin",
-  "license": "ISC",          
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/ShinJiHun/MongoDB_Study/issues"
   },
-  "homepage": "https://github.com/ShinJiHun/MongoDB_Study#readme"
+  "homepage": "https://github.com/ShinJiHun/MongoDB_Study#readme",
+  "dependencies": {
+    "nodemon": "^2.0.22"
+  }
 }
