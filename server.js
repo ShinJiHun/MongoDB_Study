@@ -1,10 +1,17 @@
 const express = require("express"); // express 프레임워크 사용을 위한 선언 객체 생성
 const app = express(); // app 변수에 express 생성
 
-const users = [{ name: "JiHoon", age: 30 }];
+const users = []; // users 정보를 입력하기 위한 변수
+
+app.use(express.json()); // express.json : https://blog.naver.com/PostView.nhn?blogId=dlaxodud2388&logNo=221708863522
 
 app.get("/user", function (req, res) {
-  res.send({ users }); // client에게 보내고 싶은 정보를 매개변수로 보내면 Page에서 확인 가능
+  return res.send({ users: users });
+});
+
+app.post("/user", function (req, res) {
+  users.push({ name: req.body.name, age: req.body.app });
+  return res.send({ success: true });
 });
 
 app.listen(3000, function () {
