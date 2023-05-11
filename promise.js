@@ -1,3 +1,13 @@
+/*
+메서드(10, 20)
+  .then() // 성공시 호출되는 부분
+  .then() // 성공시 호출되는 부분
+  .then() // 성공시 호출되는 부분 
+  .catch((error) => console.log({ error })); // 실패시 호출되는 부분
+promise 방법으로 여러번의 호출이 필요할 경우 .then을 추가하여 작성하면 됨.
+Callback을 중복으로 사용하는 것보다 가독성이 좋음.
+*/
+
 const addSum = (a, b) =>
   new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -5,28 +15,31 @@ const addSum = (a, b) =>
         reject("a,b must be numbers");
       }
       resolve(a + b);
-    }, 3000);
+    }, 300);
   });
 
-addSum(10, 20)
-  .then((sum1) => {
-    console.log({ sum1 });
-    return addSum(sum1, 3);
-  }) // 성공시 호출되는 부분
-  .then((sum2) => console.log({ sum2 })) // 성공시 호출되는 부분
-  .catch((error) => console.log({ error })); // 실패시 호출되는 부분
+addSum(10, 10)
+  .then((sum1) => addSum(sum1, 1))
+  .then((sum1) => addSum(sum1, 1))
+  .then((sum1) => addSum(sum1, 1))
+  .then((sum1) => addSum(sum1, 1))
+  .then((sum) => console.log({ sum }))
+  .catch((error) => console.log({ error }));
 
-/*
-  Promise는 Callback의 가독성 문제를 해결하기 위해 생긴 개념
-  비동기 처리시 callback에서 발생할 수 있는 여러 단점을 보완한 기능
+/**
+ * Promise보다 가독성을 높일 수 있는 방법으로는
+ * async()와 await 기법이 존재함.
+ *
+ * 비동기 개발 시
+ * callback -> promise -> async,await 순으로
+ * 가독성이 좋아진다.
+ *
+ */
 
-  Promise라는 객체를 생성하여 처리하기 떄문에 다른 함수에 객체를 넘겨서 
-  처리하는것도 가능.
+const totalSum = async () => {
+  let sum = await addSum(10, 10);
+  let sum2 = await addSum(sum, 10);
+  console.log({ sum, sum2 });
+};
 
-  Promise는 new Promise()메서드로 호출하면 pending상태가 된다.
-
-  이때 Callback 함수를 선언 가능
-  함수 인자는 resolve, reject로 
-  success -> resolve만 호출
-  failed -> reject만 호출
-*/
+totalSum();
